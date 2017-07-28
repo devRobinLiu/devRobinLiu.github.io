@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/UIWebView键盘的accessoryBar修改/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/UIWebView键盘的accessoryBar修改/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robin Liu">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/27/UIWebView键盘的accessoryBar修改/" itemprop="url">UIWebView键盘的accessoryBar修改</a></h1>
+                <a class="post-title-link" href="/2017/01/22/UIWebView键盘的accessoryBar修改/" itemprop="url">UIWebView键盘的accessoryBar修改</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-27T09:05:17+08:00">
-                2017-05-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T09:05:17+08:00">
+                2017-01-22
               </time>
             
 
@@ -363,12 +363,12 @@
       
         
           
-            <p>在开发中使用html交互过程中，UIWebView弹出的键盘比UITextField的键盘多出了左右移动以及完成按钮，以下给出如何去掉或者修改AccessoryBar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)viewWillAppear:(BOOL)animated&#123;</div><div class="line"></div><div class="line">[[NSNotificationCenter defaultCenter] addObserver:self</div><div class="line">selector:@selector(keyboardWillShow:)</div><div class="line">name:UIKeyboardWillShowNotification</div><div class="line">object:nil];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)keyboardWillShow:(NSNotification *)note &#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> ([self.textField isFirstResponder]) &#123;</div><div class="line">// 项目中只有textfield和webview，所以在这里做判断</div><div class="line">&#125;<span class="keyword">else</span> &#123;</div><div class="line">[self performSelector:@selector(removeBar) withObject:nil afterDelay:0];</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 修改webView键盘</div><div class="line">- (void)removeBar &#123;</div><div class="line">//    _UIRemoteKeyboardPlaceholderView</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIWindow *window <span class="keyword">in</span> [[UIApplication sharedApplication] windows]) &#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (![window isMemberOfClass:[UIWindow class]]) &#123;</div><div class="line">UIView *keyboardWindow = window;</div><div class="line">// 对于不同的iOS版本，处理方法不同</div><div class="line"><span class="keyword">if</span> (XSDeviceVersion &gt;= 9) &#123;</div><div class="line">[self removeAccessoryBarForiOS9:keyboardWindow];</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (XSDeviceVersion &gt;= 8) &#123;</div><div class="line">[self removeAccessoryBarForiOS8:keyboardWindow];</div><div class="line">&#125;<span class="keyword">else</span> &#123;</div><div class="line">[self removeAccessoryBarForiOS7:keyboardWindow];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS9:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetContainerView"</span>)]) &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *subviewOfInputSetContainerView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> ([subviewOfInputSetContainerView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetHostView"</span>)]) &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *subviewOfInputSetHostView <span class="keyword">in</span> subviewOfInputSetContainerView.subviews) &#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line"></div><div class="line">subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line"></div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:[NSClassFromString(@<span class="string">"_UIRemoteKeyboardPlaceholderView"</span>) class]]) &#123;</div><div class="line"></div><div class="line">subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line"></div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)]&amp;&amp; subviewOfInputSetHostView.frame.size.height &lt; 100) &#123;</div><div class="line"></div><div class="line">subviewOfInputSetHostView.backgroundColor = [UIColor blackColor];</div><div class="line">subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">// 把AccessoryBar隐藏，在containerView上添加自定义inputView</div><div class="line">[subviewOfInputSetContainerView addSubview:[self inputAView]];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS8:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line"><span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetContainerView"</span>)]) &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *subviewOfInputSetContainerView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line"><span class="keyword">if</span> ([subviewOfInputSetContainerView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetHostView"</span>)]) &#123;</div><div class="line"><span class="keyword">for</span> (UIView *subviewOfInputSetHostView <span class="keyword">in</span> subviewOfInputSetContainerView.subviews) &#123;</div><div class="line"><span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line">subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)] &amp;&amp; subviewOfInputSetHostView.frame.size.height &lt; 100) &#123;</div><div class="line">subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">subviewOfInputSetHostView.userInteractionEnabled = NO;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">// 把AccessoryBar隐藏，在containerView上添加自定义inputView</div><div class="line">[subviewOfInputSetContainerView addSubview:[self inputAView]];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS7:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line"><span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIPeripheralHostView"</span>)]) &#123;</div><div class="line"><span class="keyword">for</span> (UIView *subviewOfPeripheralHostView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line"><span class="keyword">if</span> ([subviewOfPeripheralHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line">subviewOfPeripheralHostView.layer.opacity = 0;</div><div class="line">subviewOfPeripheralHostView.frame = CGRectZero;</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfPeripheralHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)] &amp;&amp; subviewOfPeripheralHostView.frame.size.height &lt; 100) &#123;</div><div class="line">subviewOfPeripheralHostView.layer.opacity = 0;</div><div class="line">subviewOfPeripheralHostView.userInteractionEnabled = NO;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">[possibleFormView addSubview:[self inputAView]];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <p>在开发中使用html交互过程中，UIWebView弹出的键盘比UITextField的键盘多出了左右移动以及完成按钮，以下给出如何去掉或者修改AccessoryBar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)viewWillAppear:(BOOL)animated&#123;</div><div class="line"></div><div class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)keyboardWillShow:(NSNotification *)note &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ([self.textField isFirstResponder]) &#123;</div><div class="line">    // 项目中只有textfield和webview，所以在这里做判断</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        [self performSelector:@selector(removeBar) withObject:nil afterDelay:0];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 修改webView键盘</div><div class="line">- (void)removeBar &#123;</div><div class="line">//    _UIRemoteKeyboardPlaceholderView</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (UIWindow *window <span class="keyword">in</span> [[UIApplication sharedApplication] windows]) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (![window isMemberOfClass:[UIWindow class]]) &#123;</div><div class="line">            UIView *keyboardWindow = window;</div><div class="line">            // 对于不同的iOS版本，处理方法不同</div><div class="line">            <span class="keyword">if</span> (XSDeviceVersion &gt;= 9) &#123;</div><div class="line">                [self removeAccessoryBarForiOS9:keyboardWindow];</div><div class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (XSDeviceVersion &gt;= 8) &#123;</div><div class="line">                [self removeAccessoryBarForiOS8:keyboardWindow];</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                [self removeAccessoryBarForiOS7:keyboardWindow];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS9:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetContainerView"</span>)]) &#123;</div><div class="line"></div><div class="line">                <span class="keyword">for</span> (UIView *subviewOfInputSetContainerView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line"></div><div class="line">                    <span class="keyword">if</span> ([subviewOfInputSetContainerView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetHostView"</span>)]) &#123;</div><div class="line"></div><div class="line">                        <span class="keyword">for</span> (UIView *subviewOfInputSetHostView <span class="keyword">in</span> subviewOfInputSetContainerView.subviews) &#123;</div><div class="line"></div><div class="line">                            <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line"></div><div class="line">                                subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">                                subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line"></div><div class="line">                            &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:[NSClassFromString(@<span class="string">"_UIRemoteKeyboardPlaceholderView"</span>) class]]) &#123;</div><div class="line"></div><div class="line">                                subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">                                subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line"></div><div class="line">                            &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)]&amp;&amp; subviewOfInputSetHostView.frame.size.height &lt; 100) &#123;</div><div class="line"></div><div class="line">                                subviewOfInputSetHostView.backgroundColor = [UIColor blackColor];</div><div class="line">                                subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                        // 把AccessoryBar隐藏，在containerView上添加自定义inputView</div><div class="line">                        [subviewOfInputSetContainerView addSubview:[self inputAView]];</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS8:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line">        <span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetContainerView"</span>)]) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (UIView *subviewOfInputSetContainerView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line">                <span class="keyword">if</span> ([subviewOfInputSetContainerView isMemberOfClass:NSClassFromString(@<span class="string">"UIInputSetHostView"</span>)]) &#123;</div><div class="line">                    <span class="keyword">for</span> (UIView *subviewOfInputSetHostView <span class="keyword">in</span> subviewOfInputSetContainerView.subviews) &#123;</div><div class="line">                        <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line">                            subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">                            subviewOfInputSetHostView.frame = CGRectZero;</div><div class="line">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfInputSetHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)] &amp;&amp; subviewOfInputSetHostView.frame.size.height &lt; 100) &#123;</div><div class="line">                            subviewOfInputSetHostView.layer.opacity = 0;</div><div class="line">                            subviewOfInputSetHostView.userInteractionEnabled = NO;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    // 把AccessoryBar隐藏，在containerView上添加自定义inputView</div><div class="line">                    [subviewOfInputSetContainerView addSubview:[self inputAView]];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (void)removeAccessoryBarForiOS7:(UIView *)keyboardWindow &#123;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (UIView *possibleFormView <span class="keyword">in</span> keyboardWindow.subviews) &#123;</div><div class="line">        <span class="keyword">if</span> ([possibleFormView isMemberOfClass:NSClassFromString(@<span class="string">"UIPeripheralHostView"</span>)]) &#123;</div><div class="line">            <span class="keyword">for</span> (UIView *subviewOfPeripheralHostView <span class="keyword">in</span> possibleFormView.subviews) &#123;</div><div class="line">                <span class="keyword">if</span> ([subviewOfPeripheralHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIWebFormAccessory"</span>)]) &#123;</div><div class="line">                    subviewOfPeripheralHostView.layer.opacity = 0;</div><div class="line">                    subviewOfPeripheralHostView.frame = CGRectZero;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([subviewOfPeripheralHostView isMemberOfClass:NSClassFromString(@<span class="string">"UIKBInputBackdropView"</span>)] &amp;&amp; subviewOfPeripheralHostView.frame.size.height &lt; 100) &#123;</div><div class="line">                    subviewOfPeripheralHostView.layer.opacity = 0;</div><div class="line">                    subviewOfPeripheralHostView.userInteractionEnabled = NO;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            [possibleFormView addSubview:[self inputAView]];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -412,7 +412,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/18/RunTime机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/13/Xcode编译Undefined-symbols-for-architecture-xxx-错误总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robin Liu">
@@ -431,7 +431,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/18/RunTime机制/" itemprop="url">RunTime机制</a></h1>
+                <a class="post-title-link" href="/2016/04/13/Xcode编译Undefined-symbols-for-architecture-xxx-错误总结/" itemprop="url">Xcode编译Undefined symbols for architecture xxx 错误总结</a></h1>
         
 
         <div class="post-meta">
@@ -443,8 +443,154 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-18T18:11:03+08:00">
-                2017-05-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-13T09:45:27+08:00">
+                2016-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编译/" itemprop="url" rel="index">
+                    <span itemprop="name">编译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="编译中可能遇到的错误："><a href="#编译中可能遇到的错误：" class="headerlink" title="编译中可能遇到的错误："></a>编译中可能遇到的错误：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Undefined symbols <span class="keyword">for</span> architecture armv7</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture armv7s</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture arm64</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture i386</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture x86_64</div></pre></td></tr></table></figure>
+<h3 id="错误原因分析："><a href="#错误原因分析：" class="headerlink" title="错误原因分析："></a>错误原因分析：</h3><p>0、如果只有@interface，没有@implementation也会导致这个错误</p>
+<p>1、注意看Build Phases里面的Compile Sources里面有没有被报错的类文件，如果没有的话也会报上面的错误</p>
+<p>2、大部分情况下是忘记添加了某个系统framework或dylib吧，比如你在项目中使用了sqlite3，但是没有添加libsqlite3.dylib，就会出现这个问题。解决办法是增加对应的framework或dylib。</p>
+<p>3、如果是在C++里调用C函数，检查是否有添加extern “C”，这可以通过观察错误提示中的函数名形式来决定，如果是C函数而以C ++的方式调用就需要添加extern “C”。</p>
+<p>4、如果是把其它工程的xcodeproj文件加入到当前项目中，检查Build Phases中的Target Dependencies有没有添加依赖，以及General中的Linked Frameworks and Libraries有没有添加相关的.a文件。</p>
+<p>5、如果添加.a文件编译无错而添加xcodeproj文件编译出错可参考3</p>
+<p>6、如果添加.a文件编译出错，首先检查其对应的头文件是否添加正确，或者在Build Setting中有没有添加对应的Header Search Path路径；其次检查.a文件的c++编译选项与当前项目的c++编译选项是否一致；最后检查.a文件与当前项目的CPU架构信息是否一致</p>
+<p>7、如果是extern变量报这个错误，要检查extern变量有没有在其它地方声明，如果没有则加上；如果外部变量在静态库中，可根据5检查引用头文件或头文件搜索路径是否正确；如果头文件无问题，就需要检查静态库与与当前项目的CPU架构信息是否一致</p>
+<p>8、如果是使用了静态库，真机Debug测试时正常，而在执行for iOS Device测试时报这个错误，很可能是因为静态库支持的架构不全。出现这种情况是Build Setting中的Build Active Architecture Only在Debug下设为Yes，从而使得真机Debug测试正常。</p>
+<p>检查静态库的CPU架构支持命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lipo -info xxxxx.a</div></pre></td></tr></table></figure></p>
+<p>找出不支持arm64的静态库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name *.a -exec lipo -info <span class="string">"&#123;&#125;"</span> \;</div></pre></td></tr></table></figure></p>
+<h3 id="在-end处提示expected-错误解决"><a href="#在-end处提示expected-错误解决" class="headerlink" title="在@end处提示expected }错误解决"></a>在@end处提示expected }错误解决</h3><p>问题很明显是}匹配出现问题了。如果代码少很好找，如果代码很多怎么缩小查找范围呢？一般出现这个问题时伴随另一个错误：在某个函数定义处提示”Use of undeclared identifire ‘someMethod’”，那么就是在此函数定义之前的地方少了一个}，导致编译器误把函数定义当成函数调用了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/01/RunTime机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/01/RunTime机制/" itemprop="url">RunTime机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-01T18:11:03+08:00">
+                2016-04-01
               </time>
             
 
@@ -520,152 +666,6 @@
 <p>这样, 想要触发UIView的touchesBegan:withEvent:方法时, 实际调用的却是自定义的custom_touchesBegan:withEvent:方法. </p>
 <h3 id="关联对象"><a href="#关联对象" class="headerlink" title="关联对象"></a>关联对象</h3><p>Objective-C中的Category无法向既有的类添加属性, 因此可以使用runtime的关联对象(associated objects)来实现.<br>如将一个字符串关联到一个数组:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static char overviewKey;</div><div class="line">NSArray *array = [[NSArray alloc] initWithObjects:@<span class="string">"1"</span>, @<span class="string">"2"</span>, @<span class="string">"3"</span>, nil];</div><div class="line">// 为了演示的目的，使用initWithFormat:来确保字符串可以被销毁</div><div class="line">NSString *overview = [[NSString alloc] initWithFormat:@<span class="string">"@"</span>, @<span class="string">"first three numbers"</span>];</div><div class="line">objc_setAssociatedObject(array, &amp;overviewKey, overview, OBJC_ASSOCIATION_RETAIN);</div></pre></td></tr></table></figure></p>
 <p>这样, 当overview被手动释放时, 却不会被销毁. 因为关联策略指明了数组array要保有相关联的对象.<br>而array也释放时, overview才会被销毁.<br>设置关联对象, 指定被关联对象array, 关联关键字overviewKey, 关联对象overview即可:<br>objc_setAssociatedObject(array, &amp;overviewKey, overview, OBJC_ASSOCIATION_RETAIN);<br>获取关联对象, 需要传递被关联对象array和关联关键字overviewKey:<br>NSString <em>associatedObject = (NSString </em>)objc_getAssociatedObject(array, &amp;overviewKey);<br>断开关联, 只需要设置关联对象为nil即可, 关联策略就无所谓了.<br>objc_setAssociatedObject(array, &amp;overviewKey, nil, OBJC_ASSOCIATION_ASSIGN);<br>使用objc_removeAssociatedObjects可断开所有关联, 把对象恢复至原始状态.<br>通常情况下不建议使用这个函数，因为他会断开所有关联。只有在需要把对象恢复到“原始状态”的时候才会使用这个函数。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/17/Xcode编译Undefined-symbols-for-architecture-xxx-错误总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Liu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/17/Xcode编译Undefined-symbols-for-architecture-xxx-错误总结/" itemprop="url">Xcode编译Undefined symbols for architecture xxx 错误总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-17T09:45:27+08:00">
-                2017-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编译/" itemprop="url" rel="index">
-                    <span itemprop="name">编译</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="编译中可能遇到的错误："><a href="#编译中可能遇到的错误：" class="headerlink" title="编译中可能遇到的错误："></a>编译中可能遇到的错误：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Undefined symbols <span class="keyword">for</span> architecture armv7</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture armv7s</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture arm64</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture i386</div><div class="line">Undefined symbols <span class="keyword">for</span> architecture x86_64</div></pre></td></tr></table></figure>
-<h3 id="错误原因分析："><a href="#错误原因分析：" class="headerlink" title="错误原因分析："></a>错误原因分析：</h3><p>0、如果只有@interface，没有@implementation也会导致这个错误</p>
-<p>1、注意看Build Phases里面的Compile Sources里面有没有被报错的类文件，如果没有的话也会报上面的错误</p>
-<p>2、大部分情况下是忘记添加了某个系统framework或dylib吧，比如你在项目中使用了sqlite3，但是没有添加libsqlite3.dylib，就会出现这个问题。解决办法是增加对应的framework或dylib。</p>
-<p>3、如果是在C++里调用C函数，检查是否有添加extern “C”，这可以通过观察错误提示中的函数名形式来决定，如果是C函数而以C ++的方式调用就需要添加extern “C”。</p>
-<p>4、如果是把其它工程的xcodeproj文件加入到当前项目中，检查Build Phases中的Target Dependencies有没有添加依赖，以及General中的Linked Frameworks and Libraries有没有添加相关的.a文件。</p>
-<p>5、如果添加.a文件编译无错而添加xcodeproj文件编译出错可参考3</p>
-<p>6、如果添加.a文件编译出错，首先检查其对应的头文件是否添加正确，或者在Build Setting中有没有添加对应的Header Search Path路径；其次检查.a文件的c++编译选项与当前项目的c++编译选项是否一致；最后检查.a文件与当前项目的CPU架构信息是否一致</p>
-<p>7、如果是extern变量报这个错误，要检查extern变量有没有在其它地方声明，如果没有则加上；如果外部变量在静态库中，可根据5检查引用头文件或头文件搜索路径是否正确；如果头文件无问题，就需要检查静态库与与当前项目的CPU架构信息是否一致</p>
-<p>8、如果是使用了静态库，真机Debug测试时正常，而在执行for iOS Device测试时报这个错误，很可能是因为静态库支持的架构不全。出现这种情况是Build Setting中的Build Active Architecture Only在Debug下设为Yes，从而使得真机Debug测试正常。</p>
-<p>检查静态库的CPU架构支持命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lipo -info xxxxx.a</div></pre></td></tr></table></figure></p>
-<p>找出不支持arm64的静态库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name *.a -exec lipo -info <span class="string">"&#123;&#125;"</span> \;</div></pre></td></tr></table></figure></p>
-<h3 id="在-end处提示expected-错误解决"><a href="#在-end处提示expected-错误解决" class="headerlink" title="在@end处提示expected }错误解决"></a>在@end处提示expected }错误解决</h3><p>问题很明显是}匹配出现问题了。如果代码少很好找，如果代码很多怎么缩小查找范围呢？一般出现这个问题时伴随另一个错误：在某个函数定义处提示”Use of undeclared identifire ‘someMethod’”，那么就是在此函数定义之前的地方少了一个}，导致编译器误把函数定义当成函数调用了。</p>
 
           
         
